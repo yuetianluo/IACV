@@ -1,5 +1,5 @@
 # IACV
-Here we include codes for the paper 'Iterative Approximate Cross-Validation'.
+Here we include codes for the paper 'Iterative Approximate Cross-Validation' by Yuetian Luo, Zhimei Ren and Rina Foygel Barber.
 
 (1) 'gd_experiment_parallel.m', 'proxgd_experiment_parallel.m' and 'sgd_experiment_parallel' include the simulation setup code for comparing IACV with the other methods in regularized logistic regression.
 
