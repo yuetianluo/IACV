@@ -105,8 +105,8 @@ function error_matrix = comparison_sgd(X, y, mu, n, p, M, step_size, iter_max, l
               end 
               iter_base_err(z) = norm(mu_LOO{z}(2,:) - mu_t');
           end   
-        exact_cv_per_time = toc(cv_time_start);
-        exact_cv_time = exact_cv_time + exact_cv_per_time;
+          exact_cv_per_time = toc(cv_time_start);
+          exact_cv_time = exact_cv_time + exact_cv_per_time;
 
           % To compute the time of different procedures, we compute the parfor separately for each procedure
           our_time2_start = tic;
@@ -125,8 +125,8 @@ function error_matrix = comparison_sgd(X, y, mu, n, p, M, step_size, iter_max, l
               iter_IACV_err(z) = norm(mu_LOO{z}(2,:) - mu_LOO_est{z}(2,:)) ;
           end
           our_time2 = toc(our_time2_start);
-        IACV_per_time = (our_time1 + our_time2);
-        IACV_time = IACV_time + IACV_per_time;          
+          IACV_per_time = (our_time1 + our_time2);
+          IACV_time = IACV_time + IACV_per_time;          
           for z = 1:n
               grad_t_minus(:,z) = grad_t - (pi_t(z) - y(z)) * (X(z,:))';
               Hess_t_minus{z} = Hess_t - (X(z,:))' * X(z,:) * pi_t(z) * (1 - pi_t(z));
@@ -218,7 +218,7 @@ function error_matrix = comparison_sgd(X, y, mu, n, p, M, step_size, iter_max, l
       base_CV = base_CV/n;
 
       err = norm(mu_t - mu)/norm(mu);
-      iter_result = [iter, err, IACV_time, exact_cv_time, norm(iter_IACV_err)/sqrt(n), norm(iter_NS_err)/sqrt(n),norm(iter_IJ_err)/sqrt(n),norm(iter_base_err)/sqrt(n),norm(grad_t), CV,IACV_CV, NS_CV, IJ_CV,  base_CV];
+      iter_result = [iter, err, IACV_time, exact_cv_time, mean(iter_IACV_err), mean(iter_NS_err), mean(iter_IJ_err), mean(iter_base_err),norm(grad_t), CV,IACV_CV, NS_CV, IJ_CV,  base_CV];
       % if mod(iter,1000) == 0 
       %     array2table(iter_result)
       % end

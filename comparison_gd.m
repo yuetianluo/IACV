@@ -117,12 +117,12 @@ function error_matrix = comparison_gd(X, y, mu, n, p, iter_max, lambda, alpha_t)
 	    iter_IJ_err = 0;
 	    iter_base_err = 0;
 	    for z = 1:n
-	        iter_IACV_err = norm(mu_LOO{z}(2,:) - mu_LOO_IACV_est{z}(2,:))^2 + iter_IACV_err;
-	        iter_NS_err = norm(mu_LOO{z}(2,:)' - mu_LOO_NS_est(:,z))^2 + iter_NS_err;
-	        iter_IJ_err = norm(mu_LOO{z}(2,:)' - mu_LOO_IJ_est(:,z))^2 + iter_IJ_err;
-	        iter_base_err = norm(mu_LOO{z}(2,:) - mu_t')^2 + iter_base_err;
+	        iter_IACV_err = norm(mu_LOO{z}(2,:) - mu_LOO_IACV_est{z}(2,:)) + iter_IACV_err;
+	        iter_NS_err = norm(mu_LOO{z}(2,:)' - mu_LOO_NS_est(:,z)) + iter_NS_err;
+	        iter_IJ_err = norm(mu_LOO{z}(2,:)' - mu_LOO_IJ_est(:,z)) + iter_IJ_err;
+	        iter_base_err = norm(mu_LOO{z}(2,:) - mu_t') + iter_base_err;
 	    end
-      iter_result = [iter, err,IACV_time, exact_cv_time, sqrt(iter_IACV_err/n), sqrt(iter_NS_err/n),sqrt(iter_IJ_err/n),sqrt(iter_base_err/n), norm(grad_t), CV, IACV_CV, NS_CV, IJ_CV, base_CV];
+      iter_result = [iter, err,IACV_time, exact_cv_time, iter_IACV_err/n, iter_NS_err/n, iter_IJ_err/n, iter_base_err/n, norm(grad_t), CV, IACV_CV, NS_CV, IJ_CV, base_CV];
       error_matrix(iter, :) = iter_result;
   end
 end

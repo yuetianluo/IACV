@@ -50,8 +50,8 @@ function error_matrix = comparison_proxgd(X, y, mu, n, p, iter_max, lambda, alph
 	    nu_t = pi_t - y;
 	    grad_t = X' * nu_t;
 	    Hess_t = X' * diag( pi_t .* (1-pi_t) ) * X;     
-      IACV_per_time = toc(our_time_start);
-      IACV_time = IACV_time + IACV_per_time;
+        IACV_per_time = toc(our_time_start);
+        IACV_time = IACV_time + IACV_per_time;
 
 	    % compute hat_mu_LOO_t
 	    % main computational burden
@@ -66,8 +66,8 @@ function error_matrix = comparison_proxgd(X, y, mu, n, p, iter_max, lambda, alph
 	        mu_LOO{z}(2,:) = mu_minusz_t;
 	        mu_LOO{z}(1,:) = mu_LOO{z}(2,:); 
 	    end   
-      exact_cv_per_time = toc(cv_time_start);
-      exact_cv_time = exact_cv_time + exact_cv_per_time;
+        exact_cv_per_time = toc(cv_time_start);
+        exact_cv_time = exact_cv_time + exact_cv_per_time;
 
 	    % compute mu_LOO_NS_est / mu_LOO_IJ_est
 	    for z = 1:n
@@ -83,10 +83,10 @@ function error_matrix = comparison_proxgd(X, y, mu, n, p, iter_max, lambda, alph
 	    iter_IJ_err = 0;
 	    iter_base_err = 0;
 	    for z = 1:n
-	        iter_IACV_err = norm(mu_LOO{z}(2,:) - mu_LOO_est{z}(2,:))^2 + iter_IACV_err;
-	        iter_NS_err = norm(mu_LOO{z}(2,:)' - mu_LOO_NS_est(:,z))^2 + iter_NS_err;
-	        iter_IJ_err = norm(mu_LOO{z}(2,:)' - mu_LOO_IJ_est(:,z))^2 + iter_IJ_err;
-	        iter_base_err = norm(mu_LOO{z}(2,:) - mu_t')^2 + iter_base_err;
+	        iter_IACV_err = norm(mu_LOO{z}(2,:) - mu_LOO_est{z}(2,:)) + iter_IACV_err;
+	        iter_NS_err = norm(mu_LOO{z}(2,:)' - mu_LOO_NS_est(:,z)) + iter_NS_err;
+	        iter_IJ_err = norm(mu_LOO{z}(2,:)' - mu_LOO_IJ_est(:,z)) + iter_IJ_err;
+	        iter_base_err = norm(mu_LOO{z}(2,:) - mu_t') + iter_base_err;
 	    end
 	    % compute CV
 	    CV = 0;
@@ -125,7 +125,7 @@ function error_matrix = comparison_proxgd(X, y, mu, n, p, iter_max, lambda, alph
 
 
 	    err = norm(mu_t - mu)/norm(mu);
-	    iter_result = [iter, err, IACV_time, exact_cv_time, sqrt(iter_IACV_err/n), sqrt(iter_NS_err/n),sqrt(iter_IJ_err/n),sqrt(iter_base_err/n), norm(grad_t + lambda * sign(mu_t)), CV,IACV_CV, NS_CV, IJ_CV,  base_CV];
+	    iter_result = [iter, err, IACV_time, exact_cv_time, iter_IACV_err/n, iter_NS_err/n,iter_IJ_err/n,iter_base_err/n, norm(grad_t + lambda * sign(mu_t)), CV,IACV_CV, NS_CV, IJ_CV,  base_CV];
 	    error_matrix(iter, :) = iter_result;
 	    % if mod(iter,100) == 0  || iter <= 20
 	    %     array2table(iter_result)
